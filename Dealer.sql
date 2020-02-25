@@ -93,6 +93,41 @@ FOREIGN KEY (Sector) REFERENCES Sector(IdSector)
 
 GO
 
+CREATE TABLE MULTA (
+Referencia INT PRIMARY KEY IDENTITY(1,1),
+Matricula NVARCHAR(7) NOT NULL,
+IdPersona INT NOT NULL,
+Fecha DATE NOT NULL,
+Hora TIME NOT NULL,
+Calle NVARCHAR(20) NOT NULL,
+Sector INT NOT NULL,
+FOREIGN KEY (Sector) REFERENCES Sector(IdSector),
+FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
+FOREIGN KEY (IdPersona) REFERENCES Persona(IdPersona)
+)
+
+GO
+
+CREATE TABLE PersonaAccidentada (
+IdPersona INT NOT NULL,
+ReferenciaAccidente INT NOT NULL,
+PRIMARY KEY(IdPersona, ReferenciaAccidente),
+FOREIGN KEY (IdPersona) REFERENCES Persona(IdPersona),
+FOREIGN KEY (ReferenciaAccidente) REFERENCES Acciedente(Referencia)
+)
+
+GO
+
+CREATE TABLE VehiculoAccidentada (
+Matricula NVARCHAR(7) NOT NULL,
+ReferenciaAccidente INT NOT NULL,
+PRIMARY KEY(Matricula, ReferenciaAccidente),
+FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
+FOREIGN KEY (ReferenciaAccidente) REFERENCES Acciedente(Referencia)
+)
+
+GO
+
 CREATE TABLE VehiculoPersona (
 Matricula NVARCHAR(7),
 IdPersona INT,
